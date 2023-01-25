@@ -43,12 +43,12 @@ public class Parser
 
 		final Diagram diagram = new Diagram(dsl);
 
-		/*
 		// TODO: Options
 		getOptions(lines).forEach(option ->
 			{
-			//System.out.println(option.getKey() + " -> " + option.getValue());
+			System.out.println(option.getKey() + " -> " + option.getValue());
 
+			/*
 			if ("type".equalsIgnoreCase(option.getKey()))
 				{
 				diagram.setType(Util.getOrDefault(option.getValue(), Type.class, API.DEFAULT_TYPE));
@@ -58,10 +58,10 @@ public class Parser
 				{
 				diagram.setStyle(Util.getOrDefault(option.getValue(), Style.class, API.DEFAULT_STYLE));
 				}
+			*/
 			});
-		*/
 
-		throw new UnsupportedOperationException();
+		return diagram;
 		}
 
 	/**
