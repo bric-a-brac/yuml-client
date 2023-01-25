@@ -1,1 +1,1 @@
-# yuml-client
+# Unofficial yUML Java client
