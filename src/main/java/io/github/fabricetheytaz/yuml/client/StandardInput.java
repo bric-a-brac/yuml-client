@@ -28,10 +28,10 @@ public class StandardInput extends AbstractInput
 				{
 				reader.transferTo(writer);
 
-				//return writer.toString();
+				final String yuml = writer.toString();
+
+				return parser.parse(yuml);
 				}
 			}
-
-		return parser.parse();
 		}
 	}

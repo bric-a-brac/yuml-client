@@ -1,5 +1,6 @@
 package io.github.fabricetheytaz.yuml.client;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -22,6 +23,22 @@ public class FileOutput implements Output
 		super();
 
 		this.path = notNull(path);
+		}
+
+	/**
+	 * @since 0.1.0
+	 */
+	public FileOutput(final File file)
+		{
+		this(notNull(file).toPath());
+		}
+
+	/**
+	 * @since 0.1.0
+	 */
+	public FileOutput(final String path)
+		{
+		this(new File(notNull(path)));
 		}
 
 	/**
