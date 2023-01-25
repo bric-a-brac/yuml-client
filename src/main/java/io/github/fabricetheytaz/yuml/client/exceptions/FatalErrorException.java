@@ -4,12 +4,12 @@ package io.github.fabricetheytaz.yuml.client.exceptions;
  * @version 0.1.0
  * @since 0.1.0
  */
-public final class ErrorException extends YUMLException
+public final class FatalErrorException extends YUMLException
 	{
 	/**
 	 * @since 0.1.0
 	 */
-	public ErrorException()
+	public FatalErrorException()
 		{
 		super();
 		}
@@ -17,7 +17,7 @@ public final class ErrorException extends YUMLException
 	/**
 	 * @since 0.1.0
 	 */
-	public ErrorException(final String message)
+	public FatalErrorException(final String message)
 		{
 		super(message);
 		}
@@ -25,7 +25,7 @@ public final class ErrorException extends YUMLException
 	/**
 	 * @since 0.1.0
 	 */
-	public ErrorException(final Throwable cause)
+	public FatalErrorException(final Throwable cause)
 		{
 		super(cause);
 		}
@@ -33,7 +33,7 @@ public final class ErrorException extends YUMLException
 	/**
 	 * @since 0.1.0
 	 */
-	public ErrorException(final String message, final Throwable cause)
+	public FatalErrorException(final String message, final Throwable cause)
 		{
 		super(message, cause);
 		}

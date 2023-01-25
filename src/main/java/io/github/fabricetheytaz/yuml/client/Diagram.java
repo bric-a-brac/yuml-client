@@ -1,18 +1,21 @@
 package io.github.fabricetheytaz.yuml.client;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import io.github.fabricetheytaz.util.io.Input;
 
 /**
  * @version 0.1.0
  * @since 0.1.0
  */
-public class Diagram
+public class Diagram implements Input<String>
 	{
 	protected final List<String> lines = new ArrayList<>();
 
 	protected Type type;
 	protected Style style;
+	protected Direction direction;
 
 	/**
 	 * @since 0.1.0
@@ -73,5 +76,28 @@ public class Diagram
 	public final void setStyle(final Style style)
 		{
 		this.style = style;
+		}
+
+	/**
+	 * @since 0.1.0
+	 */
+	public final Direction getDirection()
+		{
+		return direction;
+		}
+
+	/**
+	 * @since 0.1.0
+	 */
+	public final void setDirection(final Direction direction)
+		{
+		this.direction = direction;
+		}
+
+	// DEV
+	@Override
+	public String get() throws IOException
+		{
+		throw new UnsupportedOperationException();
 		}
 	}
