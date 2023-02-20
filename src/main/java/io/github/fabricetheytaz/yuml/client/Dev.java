@@ -6,7 +6,7 @@ import io.github.fabricetheytaz.util.io.FileOutput;
 
 public class Dev
 	{
-	static Client client = new Client();
+	static API api = new API(new Client("fddf"));
 
 	static Path invokeStringToPath = Paths.get(".", "tests", "InvokeStringToPath.svg");
 
@@ -32,6 +32,7 @@ public class Dev
 		}
 	*/
 
+	/*
 	public static void devInvoke() throws Exception
 		{
 		client.invoke(() -> "[Curl]->[Example]-.-[Nice{bg:wheat}]", bytes -> System.out.println(new String(bytes)));
@@ -49,13 +50,14 @@ public class Dev
 
 		client.invoke(diagram, new FileOutput("dev-invoke-diagram.svg"));
 		}
+	*/
 
 	public static void main(String[] args)
 		{
 		try
 			{
 			//devInvoke();
-			devInvokeStringToPath();
+			//devInvokeStringToPath();
 
 			System.out.println("OK");
 			}
