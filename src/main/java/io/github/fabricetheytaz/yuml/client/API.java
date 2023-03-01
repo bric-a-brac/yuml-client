@@ -30,6 +30,7 @@ public class API
 
 	// POST
 	//private static final String POST_URL = "https://yuml.me/diagram/scruffy/class/";
+	@SuppressWarnings("unused")
 	private static final String POST_URL = URL + "diagram/%s/%s/";
 
 	protected final IClient client;
@@ -48,12 +49,46 @@ public class API
 
 	public final void draw(final IInput<String> input, final IOutput<byte[]> output, final Format format) throws IOException, YUMLException
 		{
-		throw new UnsupportedOperationException();
+		notNull(input);
+		notNull(output);
+		notNull(format);
+
+		final Diagram diagram = Diagram.parse(input.get());
+
+		// Prendre les options depuis le diagramme sinon prendre celles par défaut
+		// PAS BESOIN SI ON UTILISE PARSE ON A DEJA LES OPTIONS PAR DEFAUT !!!!!!!!!!!!!!!!!!!!
+		//final Type type = getOption(Type.class, diagram.getType(), DEFAULT_TYPE);
+		//final Style style = getOption(Style.class, diagram.getStyle(), DEFAULT_STYLE);
+		//final Direction direction = getOption(Direction.class, diagram.getDirection(), DEFAULT_DIRECTION);
+
+		final String dsl = String.join(",", diagram.getLines());
+
+		// TODO: Build URL
+		//final String url = String.format(POST_URL, style.name().toLowerCase(), type.name().toLowerCase());
+
+		//final byte[] bytes = post(dsl, type, style, direction, format);
+		//output.accept(bytes);
+
+		final String response = client.post("https://yuml.me/diagram/scruffy/class/", "[Curl]->[Example]-.-[Nice{bg:wheat}]");
+		System.out.println(response);
+		/*
+		//	curl -X POST -d "dsl_text=[Curl]->[Example]-.-[Nice{bg:wheat}]" https://yuml.me/diagram/scruffy/class/
+		String response = Request.Post("https://yuml.me/diagram/scruffy/class/").userAgent(USER_AGENT)
+			.bodyForm(new BasicNameValuePair("dsl_text", "[Curl]->[Example]-.-[Nice{bg:wheat}]"))
+			.execute().returnContent().asString();
+
+		//https://yuml.me/e3c59524.json
+		*/
+
+		//throw new UnsupportedOperationException();
 		}
 
+	/**
+	 * @since 0.1.0
+	 */
 	public final void draw(final IInput<String> input, final IOutput<byte[]> output) throws IOException, YUMLException
 		{
-		throw new UnsupportedOperationException();
+		draw(input, output, DEFAULT_FORMAT);
 		}
 
 	/**
@@ -120,6 +155,7 @@ public class API
 		draw(new FileInput(input), bytes -> outputConsumer.accept(bytes));
 		}
 
+	/*
 	public byte[] draw(final Diagram diagram, final Type type, final Style style, final Direction direction, final Format format) throws IOException
 		{
 		throw new UnsupportedOperationException();
@@ -131,4 +167,23 @@ public class API
 		//return draw(diagram, diagram.getType(), style, direction, format);
 		throw new UnsupportedOperationException();
 		}
+	*/
+
+	/*
+	public static final void draw(final String dsl, final Type type, final Style style, final Direction direction, final Format format)
+		{
+		final Diagram diagram = Diagram.parse(dsl);
+
+		diagram.setType(notNull(type));
+		diagram.setStyle(notNull(style));
+		diagram.setDirection(notNull(direction));
+
+		draw(diagram);
+		}
+
+	private static final void draw(final Diagram diagram)
+		{
+		throw new UnsupportedOperationException();
+		}
+	*/
 	}

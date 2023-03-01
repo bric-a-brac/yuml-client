@@ -6,6 +6,7 @@ import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.fluent.Content;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.message.BasicNameValuePair;
+
 import io.github.fabricetheytaz.yuml.client.exceptions.FatalErrorException;
 import io.github.fabricetheytaz.yuml.client.exceptions.NotFoundException;
 import io.github.fabricetheytaz.yuml.client.exceptions.YUMLException;
@@ -16,40 +17,47 @@ import static io.github.fabricetheytaz.util.Argument.notNull;
  * @version 0.1.0
  * @since 0.1.0
  */
-public final class Client extends AbstractClient
+public final class Client implements IClient
 	{
+	@SuppressWarnings("unused")
 	private static final String INPUT_NAME = "dsl_text";
+
+	private final String userAgent;
 
 	/**
 	 * @since 0.1.0
 	 */
 	public Client(final String userAgent)
 		{
-		super(userAgent);
+		super();
+
+		this.userAgent = notNull(userAgent);
 		}
 
 	/**
 	 * @since 0.1.0
 	 */
 	@Override
-	public void get(final String url) throws IOException
+	public byte[] get(final String url) throws IOException, YUMLException
 		{
-		throw new UnsupportedOperationException();
+		return execute(Request.Get(notNull(url))).asBytes();
 		}
 
 	/**
 	 * @since 0.1.0
 	 */
 	@Override
-	public void post(final String url) throws IOException
+	public String post(final String url, final String dsl) throws IOException, YUMLException
 		{
-		throw new UnsupportedOperationException();
+		final Request request = Request.Post(url).bodyForm(new BasicNameValuePair(INPUT_NAME, dsl));
+
+		// FIXME: Format comment ??? pas toujours .svg ???
+		final String filename = execute(request).asString();
+
+		return filename;
+		//throw new UnsupportedOperationException();
 		}
 
-	/**
-	 * @since 0.1.0
-	 */
-	@Override
 	@Deprecated
 	public byte[] post(final String dsl, final Type type, final Style style, final Direction direction, final Format format) throws IOException, YUMLException
 		{
@@ -60,27 +68,16 @@ public final class Client extends AbstractClient
 		notNull(direction);
 		notNull(format);
 
-		final String url = String.format(POST_URL, style.name().toLowerCase(), type.name().toLowerCase());
+		
 
-		// TODO: Build URL
-		final Request request = Request.Post(url).bodyForm(new BasicNameValuePair(INPUT_NAME, dsl));
+		
+		
 
-		// FIXME: Format comment ??? pas toujours .svg ???
-		final String filename = execute(request).asString();
+		
 
 		return execute(Request.Get(URL + filename)).asBytes();
 		*/
 
-		/*
-		//	curl -X POST -d "dsl_text=[Curl]->[Example]-.-[Nice{bg:wheat}]" https://yuml.me/diagram/scruffy/class/ 
-		String response = Request.Post("https://yuml.me/diagram/scruffy/class/").userAgent(USER_AGENT)
-			.bodyForm(new BasicNameValuePair("dsl_text", "[Curl]->[Example]-.-[Nice{bg:wheat}]"))
-			.execute().returnContent().asString();
-
-		//https://yuml.me/e3c59524.json
-
-		System.out.println(response);
-		*/
 		throw new UnsupportedOperationException();
 		}
 
